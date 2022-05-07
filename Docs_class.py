@@ -8,7 +8,7 @@ class Docs():
     def doc_hote(self, word):
         res = []
         for doc in self.doc_list:
-            if word in doc.word_tokenization():
+            if word in doc.racinisation():
                 res.append(doc.name)
         return res
     def word_frequency(self, word):
@@ -16,7 +16,7 @@ class Docs():
         for doc in self.doc_list:
             if doc.name in self.doc_hote(word):
                 all_words = []
-                for w in doc.word_tokenization():
+                for w in doc.racinisation():
                     all_words.append(w.lower())
                 all_words = nltk.FreqDist(all_words)
                 res.append((word,all_words[word],doc.name))
@@ -26,7 +26,7 @@ class Docs():
         for doc in self.doc_list:
             if doc.name in self.doc_hote(word):
                 all_words = []
-                for w in doc.word_tokenization():
+                for w in doc.racinisation():
                     all_words.append(w.lower())
                 all_words = nltk.FreqDist(all_words)
                 formule = (1+log(all_words[word]))*log(len(self.doc_list) / len(self.doc_hote(word)))
@@ -36,12 +36,12 @@ class Docs():
         texts = []
         for doc in self.doc_list:
             if doc.name in self.doc_hote(word):
-                texts.append(doc.word_tokenization())
+                texts.append(doc.racinisation())
         mytexts = nltk.TextCollection(texts)
         tf = []
         for t in texts:
             for doc in self.doc_list:
-                if doc.word_tokenization() == t:
+                if doc.racinisation() == t:
                     tf.append((mytexts.tf(word, t),doc.name))
                     continue
         return tf
